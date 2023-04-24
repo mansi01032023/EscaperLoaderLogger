@@ -14,7 +14,10 @@ class LoginController extends Controller
         $post = $this->request->getPost();
         $check = Users::findFirst(array("email = ?0 and password
         = ?1", "bind" => array($post['email'], $post['password'])));
-        if ($post['password'] == $check->password && $post['email'] == $check->email && $post['email'] != "" && $post['password'] != "") {
+        if (
+            $post['password'] == $check->password && $post['email'] == $check->email
+            && $post['email'] != "" && $post['password'] != ""
+        ) {
             $this->cookies->set("loggedin", "yes", time() + 30 * 86400, '/');
             $this->response->redirect("dashboard");
         } else {
